@@ -32,49 +32,30 @@ button:focus {
   background-color: #f29238;
 }
 
-/*div {
-  border: 1px dotted red;
-}*/
-
-/*div #note-body {
-  display: flex;
-  flex-direction: column;
-  height: 100%!important;
-}*/
 textarea {
   min-width: 100%;
   max-width: 100%;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 160px - 42px);
   max-height: calc(100vh - 160px);
-
+  padding: 10px;
+  font-size: 14px;
   background-color: #cfcfcf;
 }
 
 /* CLASSES */
 
-/* Attribute selector */
 [class^='col-'] {
   float: left;
   padding: 10px;
 }
-
-/*[class^='col-']:last-of-type {
-  padding-right: 10px;
-  float: right;
-}*/
 
 .master-div:after {
   display: table;
   clear: both;
 }
 
-.note-content {
-  height: calc(100vh - 80px);
-}
-
 .note-select {
   cursor: pointer;
-  /*margin-bottom: 5px;*/
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -87,7 +68,7 @@ textarea {
   border-top: 1px solid #eee;
 }
 
-/* ID's */
+/* ID'S */
 
 #app-title-area {
   position: fixed;
@@ -110,6 +91,8 @@ textarea {
   text-overflow: ellipsis;
 }
 
+
+
 /* DESKTOP */
 @media (min-width: 768px) {
   .col-100 {width: 100%;}
@@ -121,11 +104,14 @@ textarea {
     margin: 20px 20px 0 20px;
   }
 
+  #back-button {
+    display: none;
+  }
   #note-selection {
     margin-top: 60px;
   }
-}
 
+}
 
 
 /* MOBILE */
@@ -137,5 +123,11 @@ textarea {
 
   .mobile-hide {
     display: none;
+  }
+  button.mobile-50 {
+    width: 49%;
+  }
+  button.mobile-50:last-of-type {
+    float: right;
   }
 }
