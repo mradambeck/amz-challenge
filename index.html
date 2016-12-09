@@ -8,23 +8,50 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="./js/index.js"></script>
 
-    <title>Testing Page</title>
+    <title>Notepad</title>
   </head>
   <body>
     <div class="master-div">
-      <div class="col-100" id="title-area">
+
+      <!-- Title -->
+      <div class="col-100" id="app-title-area">
         <h1 id="header">NOTES</h1>
       </div>
+      <!-- end Title -->
 
 
+      <!-- List of existing notes -->
       <div class="col-25" id="note-selection">
-        <div class="col-100 note-title">Test</div>
-        <div class="col-100 note-title">Test</div>
-        <div class="col-100 note-title">Test</div>
-        <div class="col-100 note-title">Test</div>
-        <div class="col-100 note-title">Test</div>
+        <span id="notes-list"></span>
+        <button id="new-note">Create a New Note</button>
+
       </div>
-      <div class="col-75 note-content">75</div>
+      <!-- end List of existing notes -->
+
+
+
+      <!-- Current note -->
+      <div class="col-75 mobile-hide" id="note-content" data-note-count>
+
+
+        <!-- Current note title -->
+        <div class="col-100" id="highlighted-note-title">
+          <h2></h2>
+        </div>
+        <!-- end Current note title -->
+
+
+
+        <!-- Current note body -->
+        <div class="col-100" id="note-body">
+          <textarea></textarea>
+        </div>
+        <!-- end Current note body -->
+
+
+      </div>
+      <!-- end Current note -->
+
     </div>
   </body>
 </html>

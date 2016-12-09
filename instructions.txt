@@ -1,0 +1,9 @@
+Create a simple note-taking app in HTML, CSS, and JavaScript. This app should enable users to:
+
+- Add notes
+- Edit notes once created
+- Delete notes
+- Select a color for each note, from a fixed list of colors
+- You may use vanilla JavaScript or jQuery. Do not use any CSS frameworks/libraries. Please only submit code that is your own.
+
+This question is expected to take 60-75 minutes to complete. 
