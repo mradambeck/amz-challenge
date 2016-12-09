@@ -9,29 +9,38 @@ $( document ).ready( function(){
 
   var title = "Test title";
 
-  function Note(title){
+  function Note(title, count){
     this.content = "";
     this.title = title;
+    this.count = count;
   }
 
   // Note creation
   $('#new-note').on('click', function(){
 
     // Generate a new Note, push to
-    noteStorage['note-' + noteCount] = new Note(title);
+    noteStorage['note-' + noteCount] = new Note((title + ": " + noteCount), noteCount);
+    var thisNote = noteStorage['note-' + noteCount];
 
-    var listNote = $("<div class='col-100 note-select' data-note-count=" + noteCount + ">" + noteStorage['note-' + noteCount].title + "</div>");
+    // ERASE ME LATER
+    noteStorage['note-' + noteCount].content = ("Yo duuuuuude " + noteCount);
+
+
+    var listNote = $("<div class='col-100 note-select' data-note-count=" + thisNote.count + ">" + thisNote.title + "</div>");
     $('#notes-list').append(listNote);
     noteCount++;
 
     $('#note-selection').addClass('mobile-hide');
     $('#note-content').removeClass('mobile-hide');
-    $('#note-content').data("note-count", noteCount);
-    $('#highlighted-note-title > h2').text(title);
+    $('#note-content').data("note-count", thisNote.count);
+    $('#highlighted-note-title > h2').text(thisNote.title);
   });
 
   $('#note-selection').on('click', '.note-select', function(){
-    console.log("Boom shaka laka");
+    var noteID = $(this).data('note-count');
+    var thisNote = noteStorage['note-' + noteID];
+    $('#highlighted-note-title > h2').text(thisNote.title);
+    $('#note-body > textarea').text(thisNote.content);
   });
 
 });
