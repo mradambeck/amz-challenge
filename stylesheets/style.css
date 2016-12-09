@@ -1,0 +1,81 @@
+/* All sizes */
+
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin-top: 60px;
+}
+
+div {
+  border: 1px dotted red;
+}
+
+/* CLASSES */
+
+/* Attribute selector */
+[class^='col-'] {
+  float: left;
+  padding: 10px;
+}
+
+/*[class^='col-']:last-of-type {
+  padding-right: 10px;
+  float: right;
+}*/
+
+.master-div:after {
+  display: table;
+  clear: both;
+}
+
+.note-content {
+  height: calc(100vh - 80px);
+}
+
+/* ID's */
+
+#title-area {
+  position: fixed;
+  top: 0;
+  height: 60px;
+  width:100%;
+  background-color: #cfcfcf;
+  left:0;
+  text-align: center;
+}
+#title-area h1 {
+  font-size: 2em;
+}
+
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .col-100 {width: 100%;}
+  .col-75 {width: 75%;}
+  .col-50 {width: 50%;}
+  .col-25 {width: 25%;}
+
+  .master-div {
+    margin: 20px 20px 0 20px;
+
+  }
+}
+
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .col-100 {width: 100%;}
+  .col-75 {width: 100%;}
+  .col-50 {width: 100%;}
+  .col-25 {width: 100%;}
+}
