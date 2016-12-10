@@ -20,11 +20,9 @@ $( document ).ready( function(){
     $('#note-body > textarea').prop("disabled", bool);
     $('button#delete-note').prop("disabled", bool);
     if (bool){
-      $('button#delete-note').css('cursor','not-allowed');
       $('#note-body > textarea').css('cursor','not-allowed');
       $('.color-btn').css('cursor', 'not-allowed');
     } else {
-      $('button#delete-note').css('cursor','pointer');
       $('#note-body > textarea').css('cursor','default');
       $('.color-btn').css('cursor', 'pointer');
     }

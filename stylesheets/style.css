@@ -1,5 +1,4 @@
-/* All sizes */
-
+/* HTML tags */
 *,
 *:after,
 *:before {
@@ -11,9 +10,7 @@
           box-sizing: border-box;
 }
 
-body {
-  margin-top: 60px;
-}
+body { margin-top: 60px; }
 
 button {
   height: 42px;
@@ -31,12 +28,13 @@ button:hover,
 button:focus {
   background-color: #f29238;
 }
+button:disabled {
+  display:none;
+}
 
 textarea {
-  min-width: 100%;
-  max-width: 100%;
+  width: 100%;
   height: calc(100vh - 160px - 42px);
-  max-height: calc(100vh - 160px);
   padding: 10px;
   font-size: 14px;
   background-color: #e8e8e8;
@@ -44,24 +42,20 @@ textarea {
   resize: none;
 }
 
-/* CLASSES */
 
+/* CLASSES */
 [class^='col-'] {
   float: left;
   padding: 10px;
 }
 
 .active {
-  border-left: 1px solid #eee;
+  border-left:  1px solid #eee;
   border-right: 1px solid #eee;
 }
 
-.col-nav-left {
-  width: 65%;
-}
-.col-nav-right {
-  width: 35%;
-}
+.col-nav-left   { width: 65%; }
+.col-nav-right  { width: 35%; }
 
 .color-btn {
   cursor: pointer;
@@ -95,8 +89,8 @@ textarea {
   border-top: 1px solid #eee;
 }
 
-/* ID'S */
 
+/* ID'S */
 #app-title-area {
   position: fixed;
   top: 0;
@@ -111,18 +105,10 @@ textarea {
   font-size: 2em;
 }
 
-#btn-red {
-  background-color: #fd504e;
-}
-#btn-green {
-  background-color: #5ca756;
-}
-#btn-yellow  {
-  background-color: #fa971b;
-}
-#btn-blue {
-  background-color: #44a0c7;
-}
+#btn-red    { background-color: #fd504e; }
+#btn-green  { background-color: #5ca756; }
+#btn-yellow { background-color: #fa971b; }
+#btn-blue   { background-color: #44a0c7; }
 
 #highlighted-note-title > h2 {
   height: 28px;
@@ -132,13 +118,12 @@ textarea {
 }
 
 
-
 /* DESKTOP */
 @media (min-width: 768px) {
-  .col-100 {width: 100%;}
-  .col-75 {width: 75%;}
-  .col-50 {width: 50%;}
-  .col-25 {width: 25%;}
+  .col-100  { width: 100%; }
+  .col-75   { width: 75%; }
+  .col-50   { width: 50%; }
+  .col-25   { width: 25%; }
 
   .master-div {
     margin: 20px 20px 0 20px;
@@ -150,31 +135,21 @@ textarea {
   #note-selection {
     margin-top: 60px;
   }
-
 }
 
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .col-100 {width: 100%;}
-  .col-75 {width: 100%;}
-  .col-50 {width: 100%;}
-  .col-25 {width: 100%;}
+  .col-100  { width: 100%; }
+  .col-75   { width: 100%; }
+  .col-50   { width: 100%; }
+  .col-25   { width: 100%; }
 
-  .col-nav-left {
-    width: 55%;
-  }
-  .col-nav-right {
-    width: 45%;
-  }
+  .col-nav-left   { width: 55%; }
+  .col-nav-right  { width: 45%; }
 
-  .mobile-hide {
-    display: none;
-  }
-  button.mobile-50 {
-    width: 49%;
-  }
-  button.mobile-50:last-of-type {
-    float: right;
-  }
+  .mobile-hide { display: none; }
+
+  button.mobile-50 { width: 49%; }
+  button.mobile-50:last-of-type { float: right; }
 }
