@@ -78,6 +78,8 @@ $( document ).ready( function(){
       $('#note-content').attr("data-current-note", thisNote.count);
       $('#note-body > textarea').val(thisNote.content);
       $('#highlighted-note-title > h2').text(thisNote.title);
+      $('.note-select').removeClass('active');
+      $('.note-select[data-note-count="' + thisNote.count + '"]').addClass('active');
 
       updateColors(thisNote.color);
       switchMobileToView("notepad");
@@ -139,6 +141,7 @@ $( document ).ready( function(){
       setFieldsToDisabled(true);
       updateColors("#000000");
       switchMobileToView("note-select");
+      $('.note-select').removeClass('active');
     }
 
   });
