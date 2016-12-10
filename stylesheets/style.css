@@ -39,7 +39,8 @@ textarea {
   max-height: calc(100vh - 160px);
   padding: 10px;
   font-size: 14px;
-  background-color: #cfcfcf;
+  background-color: #e8e8e8;
+  border-color: #000000;
 }
 
 /* CLASSES */
@@ -47,6 +48,26 @@ textarea {
 [class^='col-'] {
   float: left;
   padding: 10px;
+}
+
+.col-nav-left {
+  width: 65%;
+}
+.col-nav-right {
+  width: 35%;
+}
+
+.color-btn {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border: 1px solid grey;
+  display: inline-block;
+  float: right;
+  margin: 5px 0 0 10px;
+}
+.color-btn:hover {
+  border: 1px solid black;
 }
 
 .master-div:after {
@@ -82,6 +103,19 @@ textarea {
 }
 #app-title-area h1 {
   font-size: 2em;
+}
+
+#btn-red {
+  background-color: #fd504e;
+}
+#btn-green {
+  background-color: #5ca756;
+}
+#btn-yellow  {
+  background-color: #fa971b;
+}
+#btn-blue {
+  background-color: #44a0c7;
 }
 
 #highlighted-note-title > h2 {
@@ -120,6 +154,13 @@ textarea {
   .col-75 {width: 100%;}
   .col-50 {width: 100%;}
   .col-25 {width: 100%;}
+
+  .col-nav-left {
+    width: 55%;
+  }
+  .col-nav-right {
+    width: 45%;
+  }
 
   .mobile-hide {
     display: none;
