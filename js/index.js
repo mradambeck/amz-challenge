@@ -3,32 +3,35 @@ $( document ).ready( function(){
   var noteCount = 0,
       noteID = 0;
 
-  // Note class:
+  // Note parent:
   function Note(title, count){
     this.content = "";
     this.title = title;
     this.count = count;
     this.color = "#000000";
   }
-  // Object to save notes in:
-  var noteStorage = {};
+
+  var noteStorage = {}; // Object to save notes in
 
 
+  // FUNCTIONS
   // Disable fields when not available.
-  function setFieldsToDisabled(bool){
+  function setFieldsToDisabled(bool) {
     $('#note-body > textarea').prop("disabled", bool);
     $('button#delete-note').prop("disabled", bool);
     if (bool){
       $('button#delete-note').css('cursor','not-allowed');
       $('#note-body > textarea').css('cursor','not-allowed');
+      $('.color-btn').css('cursor', 'not-allowed');
     } else {
       $('button#delete-note').css('cursor','pointer');
       $('#note-body > textarea').css('cursor','default');
+      $('.color-btn').css('cursor', 'pointer');
     }
   }
 
   // Changes views on mobile
-  function switchMobileToView(page){
+  function switchMobileToView(page) {
     if (page === "notepad"){
       $('#note-selection').addClass('mobile-hide');
       $('#note-content').removeClass('mobile-hide');
@@ -38,15 +41,27 @@ $( document ).ready( function(){
     }
   }
 
+  function updateColors(newColor) {
+    $('#highlighted-note-title > h2').css('color', newColor);
+    $('#note-body > textarea').css('color', newColor).css('border-color', newColor);
+    $('.color-btn').css('border', '1px solid grey');
+
+    if (newColor !== "#000000"){
+      var colorBtn = $('.color-btn[data-hex-code="' + newColor + '"]');
+      $(colorBtn).css('border', '2px solid black');
+    }
+  }
+
   // Initial setup
   setFieldsToDisabled(true);
 
 
+  // WATCHERS
   // Create new Note
   $('button#new-note').on('click', function(){
-
     setFieldsToDisabled(false);
 
+    // This is enclosed in a function so that we can return early if there's no title
     function createNote(){
       var title = prompt("Please name your note:");
       if (title === null){
@@ -57,26 +72,20 @@ $( document ).ready( function(){
       noteStorage['note-' + noteCount] = new Note(title, noteCount);
       var thisNote = noteStorage['note-' + noteCount];
 
-      // Update UI:
+      // Update HTML/CSS:
       var noteHtml = $("<div class='col-100 note-select' data-note-count=" + thisNote.count + ">" + thisNote.title + "</div>");
       $('#notes-list').append(noteHtml);
-
       $('#note-content').attr("data-current-note", thisNote.count);
       $('#note-body > textarea').val(thisNote.content);
-      $('#highlighted-note-title > h2').text(thisNote.title).css('color', thisNote.color);
+      $('#highlighted-note-title > h2').text(thisNote.title);
 
-      $('.color-btn').css('border', '1px solid grey');
-      $('#note-body > textarea').css('color', thisNote.color).css('border-color', thisNote.color);
-
+      updateColors(thisNote.color);
       switchMobileToView("notepad");
 
-      return noteCount++;
+      noteCount++;
     }
-
     createNote();
-
   });
-
 
 
   // Select existing note
@@ -92,22 +101,18 @@ $( document ).ready( function(){
 
     // Update content
     $('#note-content').attr("data-current-note", thisNote.count);
-    $('#highlighted-note-title > h2').text(thisNote.title).css('color', thisNote.color);
+    $('#highlighted-note-title > h2').text(thisNote.title);
     $('#note-body > textarea').val(thisNote.content);
 
-    // Update colors
-    $('.color-btn').css('border', '1px solid grey');
-    $('#note-body > textarea').css('color', thisNote.color).css('border-color', thisNote.color);
-    var colorBtn = $('.color-btn[data-hex-code="' + thisNote.color + '"]');
-    console.log(colorBtn);
-    if (thisNote.color !== "#000000") { $(colorBtn).css('border', '2px solid black'); }
+    $('.note-select').removeClass('active');
+    $(this).addClass('active');
 
+    updateColors(thisNote.color);
     switchMobileToView("notepad");
   });
 
 
-
-  // Update note content upon change
+  // Update Note.content upon change
   $('#note-body > textarea').keyup(function(){
     var thisNoteId = $('#note-content').attr('data-current-note');
     var thisNote = noteStorage['note-' + thisNoteId];
@@ -119,50 +124,52 @@ $( document ).ready( function(){
 
   // Delete a note
   $('button#delete-note').on('click', function(){
+    var okToDelete = confirm("Are you sure you want to delete this note?");
+    if (okToDelete){
+      var thisNoteId = $('#note-content').attr('data-current-note');
+      var noteSelector = $('.note-select[data-note-count="' + thisNoteId + '"]');
 
-    var thisNoteId = $('#note-content').attr('data-current-note');
-    var noteSelector = $('.note-select[data-note-count="' + thisNoteId + '"]');
-    $('#highlighted-note-title > h2').text("");
-    $('#note-body > textarea').val('');
-    $(noteSelector).remove();
+      // Clear out UI
+      $('#highlighted-note-title > h2').text("");
+      $('#note-body > textarea').val('');
+      $(noteSelector).remove();
 
-    delete noteStorage['note-' + thisNoteId];
-    setFieldsToDisabled(true);
-    switchMobileToView("note-select");
+      delete noteStorage['note-' + thisNoteId]; // Remove from noteStorage
+
+      setFieldsToDisabled(true);
+      updateColors("#000000");
+      switchMobileToView("note-select");
+    }
+
+  });
+
+
+  // Color selector
+  $('.color-btn').on('click', function(){
+    // Check if there's a note to update first
+    var isDisabled = $('#note-body > textarea').prop("disabled");
+
+    if (!isDisabled) {
+      var noteID = $('#note-content').attr('data-current-note');
+      var thisNote = noteStorage['note-' + noteID];
+      var thisNoteListing = $('.note-select[data-note-count="'+ noteID +'"]');
+      var thisColor = $(this).data('hex-code');
+
+      if ( thisColor === thisNote.color ){
+        thisNote.color = "#000000";
+      } else {
+        thisNote.color = thisColor;
+      }
+
+      $(thisNoteListing).css('color', thisNote.color);
+      updateColors(thisNote.color);
+    }
   });
 
 
   // (Mobile only): return to notes list
   $('button#back-button').on('click', function(){
     switchMobileToView("note-select");
-  });
-
-
-  // Select color
-  $('.color-btn').on('click', function(){
-    var noteID = $('#note-content').attr('data-current-note');
-    var thisNote = noteStorage['note-' + noteID];
-    var thisNoteListing = $('.note-select[data-note-count="'+ noteID +'"]');
-
-    function setColor(scope){
-      var thisColor = $(scope).data('hex-code');
-
-      // Reset other borders
-      $('.color-btn').css('border', '1px solid grey');
-
-      if ( thisColor === thisNote.color ){
-        thisNote.color = "#000000";
-      } else {
-        thisNote.color = thisColor;
-        $(scope).css('border', '2px solid black');
-      }
-
-      return thisNote.color;
-    }
-
-    $(thisNoteListing).css('color', setColor(this));
-    $('#highlighted-note-title > h2').css('color', thisNote.color);
-    $('#note-body > textarea').css('color', thisNote.color).css('border-color', thisNote.color).css();
   });
 
 });
