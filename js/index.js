@@ -40,8 +40,8 @@ $( document ).ready( function(){
   }
 
   function updateColors(newColor) {
-    $('#highlighted-note-title > h2').css('color', newColor);
-    $('#note-body > textarea').css('color', newColor).css('border-color', newColor);
+    var bgColor = (newColor === '#000000')? '#e8e8e8' : newColor;
+    $('#note-body > textarea').css('background-color', bgColor);
     $('.color-btn').css('border', '1px solid grey');
 
     if (newColor !== "#000000"){
@@ -126,8 +126,8 @@ $( document ).ready( function(){
   $('button#delete-note').on('click', function(){
     var okToDelete = confirm("Are you sure you want to delete this note?");
     if (okToDelete){
-      var thisNoteId = $('#note-content').attr('data-current-note');
-      var noteSelector = $('.note-select[data-note-count="' + thisNoteId + '"]');
+      noteId = $('#note-content').attr('data-current-note');
+      var noteSelector = $('.note-select[data-note-count="' + noteId + '"]');
 
       // Clear out UI
       $('#highlighted-note-title > h2').text("");
@@ -151,7 +151,7 @@ $( document ).ready( function(){
     var isDisabled = $('#note-body > textarea').prop("disabled");
 
     if (!isDisabled) {
-      var noteID = $('#note-content').attr('data-current-note');
+      noteID = $('#note-content').attr('data-current-note');
       var thisNote = noteStorage['note-' + noteID];
       var thisNoteListing = $('.note-select[data-note-count="'+ noteID +'"]');
       var thisColor = $(this).data('hex-code');
