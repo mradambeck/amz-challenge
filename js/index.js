@@ -40,8 +40,8 @@ $( document ).ready( function(){
   }
 
   function updateColors(newColor) {
-    $('#highlighted-note-title > h2').css('color', newColor);
-    $('#note-body > textarea').css('color', newColor).css('border-color', newColor);
+    var bgColor = (newColor === '#000000')? '#e8e8e8' : newColor;
+    $('#note-body > textarea').css('background-color', bgColor);
     $('.color-btn').css('border', '1px solid grey');
 
     if (newColor !== "#000000"){
